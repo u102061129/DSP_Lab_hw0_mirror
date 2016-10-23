@@ -12,34 +12,47 @@ B = I(:,:,3);
 % get height, width, channel of image
 [height, width, channel] = size(I);
 
-%%  horizontal flipping
+% initial r,g,b array for flipped image, using zeros(). NOTE: type conversion is needed!
+R_flip =  uint8(zeros(height,width));
+G_flip =  uint8(zeros(height,width));
+B_flip =  uint8(zeros(height,width));
+
+%%  horizontal flipping (function 'fliplr' does the same thing!)
 if type==0
-    % initial r,g,b array for flipped image, using zeros()
-    %%% R_flip = 
-    %%% G_flip = 
-    %%% B_flip = 
-    
-    % assign pixels from R,G,B to R_flip, G_flip, B_flip
+% assign pixels from R,G,B to R_flip, G_flip, B_flip
    for h = 1 : height
        for w = 1 : width 
-            %%% R_flip(h, w) = 
-            %%% G_flip(h, w) = 
-            %%% B_flip(h, w) = 
+            R_flip(h, w) = R(h,width-w+1);
+            G_flip(h, w) = G(h,width-w+1);
+            B_flip(h, w) = B(h,width-w+1);
        end
-    end
-    
-    % save R_flip, G_flip, B_flip to output image
-    %%% I_flip(:,:,1) = 
-    %%% I_flip(:,:,2) = 
-    %%% I_flip(:,:,3) = 
+   end
 end
 
 %% vertical flipping
 if type==1
-%%% ...
+% assign pixels from R,G,B to R_flip, G_flip, B_flip
+   for w = 1 : width
+       for h = 1 : height 
+            R_flip(h, w) = R(height-h+1,w);
+            G_flip(h, w) = G(height-h+1,w);
+            B_flip(h, w) = B(height-h+1,w);
+       end
+   end
 end
 
 %%  horizontal + vertical flipping
 if type==2
-%%% ...
+% assign pixels from R,G,B to R_flip, G_flip, B_flip
+   for h = 1 : height
+       for w = 1 : width 
+            R_flip(h, w) = R(height-h+1,width-w+1);
+            G_flip(h, w) = G(height-h+1,width-w+1);
+            B_flip(h, w) = B(height-h+1,width-w+1);
+       end
+   end
 end
+%% save R_flip, G_flip, B_flip to output image
+I_flip(:,:,1) =  R_flip;
+I_flip(:,:,2) =  G_flip;
+I_flip(:,:,3) =  B_flip;
